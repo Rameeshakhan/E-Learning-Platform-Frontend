@@ -7,7 +7,7 @@ import TutorDashBoard from "./components/tutor/TutorDashboard"
 import NotFound from './components/NotFound';
 
 const App = () => {
-  const role = "Student";
+  const role = "Tutor";
   const isStudent = role === "Student";
   const isTutor = role === "Tutor";
 
@@ -18,7 +18,7 @@ const App = () => {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         {isStudent && <Route path="/dashboard" element={<DashBoard />} />}
-        {isTutor && <Route path="/tutordashboard" element={<TutorDashBoard />} />}
+        {isTutor && <Route path="/dashboard" element={<TutorDashBoard />} />}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
