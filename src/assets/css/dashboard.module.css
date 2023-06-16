@@ -1,0 +1,62 @@
+.upperContainer{
+    overflow-y: hidden;
+}
+.container{
+    margin: 10px 40px 20px 40px; 
+    overflow-y: hidden;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 10px 15px 10px;
+    box-shadow: 0 4px 10px -4px rgba(0, 0, 0, 0.5);
+}
+
+.logoutBtn{
+    margin-right: 50px;
+    padding: 05px 30px;
+    background-color: #770043;
+    color: #ffffff;
+    font-family: "Outfit";
+    border: none;
+    border-radius: 10px;
+}
+
+.dashBoardOptions{
+    margin: 20px 15px 0px 0px;
+    border: none;
+    color: #770043;
+    background-color: #ffffff;
+    font-size: 18px;
+}
+
+.active{
+    border:1px solid #770043;
+    border-bottom: none;
+    border-top: none;
+    padding: 10px;
+    color: #ffffff;
+    border-radius: 5px;
+    background-color: #770043;
+}
+
+.requestForm{
+    margin: 4px 50px;
+}
+
+.submitBtn{
+    margin-right: 50px;
+    padding: 10px 30px;
+    background-color: #770043;
+    color: #ffffff;
+    font-family: "Outfit";
+    border: none;
+    border-radius: 05px;
+}
+
+.submitBtn:hover{
+    background-color: #ffffff;
+    color: #770043;
+    border: 1px solid #770043 ;
+}
