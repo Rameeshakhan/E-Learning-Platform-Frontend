@@ -3,19 +3,26 @@ import styles from "../../assets/css/dashboard.module.css"
 import Classroom from "./Classroom"
 import CreateProposal from './Submit-A-Proposal/CreateProposal';
 import ProposalList from './Submit-A-Proposal/ProposalList';
+import { useNavigate } from 'react-router-dom';
 
 const TutorDashBoard = () => {
+
+    const navigate = useNavigate
   const [activeOption, setActiveOption] = useState("submitted"); // State to track the active button
 
   const handleOptionClick = (option) => {
     setActiveOption(option);
   };
+  
+  const handleLogout = () => {
+    navigate("./login")
+  }
 
   return (
     <div className={styles.upperContainer}>
       <div className={styles.header}>
         <h2>Dashboard</h2>
-        <button className={styles.logoutBtn}>Logout</button>
+        <button className={styles.logoutBtn} onClick={handleLogout}>Logout</button>
       </div>
     <div className={styles.container}>
       <span className={styles.navOptions}>
