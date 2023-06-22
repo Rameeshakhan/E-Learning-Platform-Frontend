@@ -19,3 +19,16 @@
 .accepted{
     color: green;
 }
+
+.payBtn{
+    margin-top: 50px;
+    padding: 05px 20px;
+    color: white;
+    background-color:#770043 ;
+    border: none;
+    border-radius: 05px;
+}
+
+.disabled{
+    background-color: gray;
+}

@@ -1,0 +1,49 @@
+.proposalContainer{
+    border: 1px solid gray;
+    border-radius: 6px;
+    padding: 10px;
+    margin: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.contentWrapper {
+    flex-grow: 1;
+  }
+  
+  .statusContainer {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+  }
+
+  .statusContainer > * {
+    /* margin-top: auto; */
+    margin-bottom: auto;
+  }
+
+.pending{
+    margin-top: 3px;
+    margin-right: 3px;
+    color: gray;
+}
+
+.accepted{
+    color: green;
+    margin-top: 3px;
+    margin-right: 3px;
+}
+
+.rejected{
+    color: red;
+    margin-top: 3px;
+    margin-right: 3px;
+}
+
+.editIcon{
+  margin: 5px;
+}
+
+.deleteIcon{
+  margin: 5px;
+}
