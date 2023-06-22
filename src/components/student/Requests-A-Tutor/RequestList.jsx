@@ -170,47 +170,57 @@ const RequestList = () => {
     <Modal isOpen={isProposalModalOpen} onClose={closeProposalModal}>
       <h3>Proposals</h3>
       {showProposals.map((proposal) => (
-        <div key={proposal._id}>
-          <p>Proposal ID: {proposal._id}</p>
-          <p>Proposal Content: {proposal.description}</p>
-          <p>Proposal amount: {proposal.amount}</p>
-          <button onClick={() => handleAcceptAndPayBtn(proposal._id)}>Accept & Pay</button>
-          <button onClick={closeProposalModal}>Close</button>
+       <>
+        <div className={styles.showProposalDiv} key={proposal._id}>
+          {/* <p>Proposal ID: {proposal._id}</p> */}
+          <p><b>Description:</b> <br/>{proposal.description}</p>
+          <p><b>Amount:</b> <br/> {proposal.amount}</p>
+         <div className={styles.showProposalBtnDiv}>
+         <button className={styles.showProposalBtn} onClick={() => handleAcceptAndPayBtn(proposal._id)}>Accept & Pay</button>
+         </div>
         </div>
+       </>
       ))}
+      <button className={styles.showProposalBtn} onClick={closeProposalModal}>Close</button>
     </Modal>
   );
 
   return (
     <div className={styles.requestInfo}>
-      {userRequests.map((data) => (
-        <div className={styles.requestDataContainer} key={data.id}>
-          <div className={styles.requestHeader}>
-            <h4>{data.subject}</h4>
-            <div className={styles.iconsContainer}>
-              <div className={styles.editDeleteIcons}>
-                <FaEdit className={styles.editIcon} onClick={() => handleEditRequest(data._id)} />
-                <FaTrash className={styles.deleteIcon} onClick={() => handleDeleteRequest(data._id)} />
-              </div>
-            </div>
-          </div>
-          <div className={styles.requestInfo}>
-            <p>{data.description}</p>
-          </div>
-          <div className={getStatusColor(data.status)}>
-            {getStatusIcon(data.status)}
-            {data.status}
-            <br />
-            <button
-              className={`${styles.payBtn} ${data.status === "pending" ? styles.disabled : ""}`}
-              onClick={() => handleSeeProposalBtn(data._id)}
-              disabled={data.status === "pending"}
-            >
-              See Proposals
-            </button>
-          </div>
+     {userRequests.map((data) => (
+  <div className={styles.requestDataContainer} key={data.id}>
+    <div className={styles.requestHeader}>
+      <div className={styles.subjectDescriptionContainer}>
+        <h4 className={styles.subject}>{data.subject}</h4>
+        <div className={styles.requestInfo}>
+          <p className={styles.description}>{data.description}</p>
         </div>
-      ))}
+      </div>
+      <div className={styles.iconsContainer}>
+        <div className={styles.editDeleteIcons}>
+          {/* {getStatusIcon(data.status)} */}
+          <FaEdit className={styles.editIcon} onClick={() => handleEditRequest(data._id)} />
+          <FaTrash className={styles.deleteIcon} onClick={() => handleDeleteRequest(data._id)} />
+        </div>
+      </div>
+    </div>
+    <div className={getStatusColor(data.status)}>
+      <div className={styles.statusContainer}>
+        {getStatusIcon(data.status)}
+        {data.status}
+      </div>
+    </div>
+      <br />
+      <button
+        className={`${styles.payBtn} ${data.status === "pending" ? styles.disabled : ""}`}
+        onClick={() => handleSeeProposalBtn(data._id)}
+        disabled={data.status === "pending"}
+      >
+        See Proposals
+      </button>
+  </div>
+))}
+
       {editModal}
       {showProposals.length > 0 ? proposalModal : (
         <Modal isOpen={isProposalModalOpen} onClose={closeProposalModal}>

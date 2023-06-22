@@ -1,16 +1,55 @@
-.requestDataContainer{
+.requestDataContainer {
     border: 1px solid gray;
     border-radius: 5px;
     padding: 15px;
     margin: 10px;
     display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .requestHeader {
+    display: flex;
     justify-content: space-between;
-}
-
-.requestInfo{
-    padding: 10px;
-    flex-basis: 89%;
-}
+    align-items: flex-start;
+  }
+  
+  .subjectDescriptionContainer {
+    flex-grow: 1;
+  }
+  
+  .subject {
+    margin: 0;
+  }
+  
+  .requestInfo {
+    margin: 0;
+  }
+  
+  .iconsContainer {
+    display: flex;
+    align-items: flex-start;
+    font-size: 14px;
+  }
+  
+  .statusContainer {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  .payBtn {
+    margin-top: 10px;
+    align-self: flex-end;
+    padding: 010px 10px;
+    color: white;
+    background-color:#770043 ;
+    border: none;
+    border-radius: 05px;
+    width: 200px;
+    height: 50px;
+  }
+  
 
 .pending{
     color: gray;
@@ -20,15 +59,44 @@
     color: green;
 }
 
-.payBtn{
+/* .payBtn{
     margin-top: 50px;
     padding: 05px 20px;
     color: white;
     background-color:#770043 ;
     border: none;
     border-radius: 05px;
-}
+    width: 300px;
+    height: 20px;
+} */
 
 .disabled{
     background-color: gray;
+}
+
+.showProposalDiv{
+    border: 0.5px solid rgb(175, 174, 174);
+    margin: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    overflow-y: scroll;
+}
+.showProposalBtnDiv{
+    display: flex;
+}
+.showProposalBtn{
+    padding: 7px 10px;
+    margin: 5px;
+    width: 25%;
+    color: white;
+    background-color: #770043;
+    border: none;
+    border-radius: 10px;
+    float:right
+}
+
+.iconsContainer{
+
+    padding: 3px;
+    margin: 10px;
 }
