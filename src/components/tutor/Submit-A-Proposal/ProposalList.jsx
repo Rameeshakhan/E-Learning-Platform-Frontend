@@ -88,19 +88,22 @@ const ProposalList = () => {
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         {editProposal && (
           <div>
-            <h3>Edit Proposal</h3>
-            <p>Description: {editProposal.description}</p>
+            <h3>Edit Proposal</h3><br/>
             <input
-              type="text"
-              value={updatedDescription}
-              onChange={(e) => setUpdatedDescription(e.target.value)}
-            />
-            <input
-              type="text"
-              value={updatedAmount}
-              onChange={(e) => setUpdatedAmount(e.target.value)}
-            />
-            <button onClick={handleUpdateProposal}>Update</button>
+  type="text"
+  value={updatedDescription}
+  onChange={(e) => setUpdatedDescription(e.target.value)}
+  className="form-control"
+/><br/>
+<input
+  type="text"
+  value={updatedAmount}
+  onChange={(e) => setUpdatedAmount(e.target.value)}
+  className="form-control"
+/><br/>
+
+            <button className={styles.proposalUpdateBtn} onClick={handleUpdateProposal}>Update</button>
+            <button className={styles.proposalUpdateBtn} onClick={() => setIsModalOpen(false)}>Close</button>
           </div>
         )}
       </Modal>

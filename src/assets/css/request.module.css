@@ -100,3 +100,16 @@
     padding: 3px;
     margin: 10px;
 }
+
+.deleteModalBtn{
+    color: white;
+    background-color: #770043;
+    border: none;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px 20px;
+}
+
+.deleteModal{
+    margin: 10px auto;
+}

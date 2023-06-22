@@ -232,15 +232,17 @@ const RequestList = () => {
 
       {requestToDelete && (
         <Modal isOpen={isDeleteConfirmationOpen} onClose={closeDeleteConfirmation}>
-          <h3>Confirm Delete</h3>
+         <div className={styles.deleteModal}>
+         <h3>Confirm Delete</h3>
           <p>Are you sure you want to delete this request?</p>
           <div className="btn-group">
-            <button className="btn btn-danger" onClick={confirmDeleteRequest}>
+            <button className= {styles.deleteModalBtn} onClick={confirmDeleteRequest}>
               Delete
             </button>
-            <button className="btn btn-secondary" onClick={closeDeleteConfirmation}>
+            <button className={styles.deleteModalBtn} onClick={closeDeleteConfirmation}>
               Cancel
             </button>
+          </div>
           </div>
         </Modal>
       )}
