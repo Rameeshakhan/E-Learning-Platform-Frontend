@@ -36,12 +36,11 @@ const RequestList = () => {
 
   const openModal = () => {
     setEditModalOpen(true);
-    setShowProposals([]); // Reset the showProposals state
+    setShowProposals([]); 
   };
 
   const closeEditModal = () => {
     setEditModalOpen(false);
-    // setToastVisible(true);
   };
 
   const closeProposalModal = () => {
@@ -226,7 +225,7 @@ const RequestList = () => {
         <Modal isOpen={isProposalModalOpen} onClose={closeProposalModal}>
           <h3>No Proposals</h3>
           <p>There are no proposals available.</p>
-          <button onClick={closeProposalModal}>Close</button>
+          <button className={styles.showProposalModalCloseBtn} onClick={closeProposalModal}>Close</button>
         </Modal>
       )}
 
