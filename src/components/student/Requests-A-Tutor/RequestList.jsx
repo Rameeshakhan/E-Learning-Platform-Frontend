@@ -5,7 +5,7 @@ import styles from "../../../assets/css/request.module.css";
 import Modal from "../../UI/Modal";
 import { fetchRequests, deleteRequest, updateRequest } from "../../../redux/slices/RequestsSlice";
 import { getProposals, updateProposal } from "../../../redux/slices/ProposalSlice";
-import { toast , ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const RequestList = () => {
   const dispatch = useDispatch();
@@ -14,10 +14,10 @@ const RequestList = () => {
 
   const requests = useSelector((state) => state.request.list || []);
   const [userRequests, setUserRequests] = useState([]);
-  const proposals = useSelector((state) => state.proposal.proposals || [])
+  const proposals = useSelector((state) => state.proposal.proposals || []);
   const [showProposals, setShowProposals] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isToastVisible, setToastVisible] = useState(false);
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [isProposalModalOpen, setProposalModalOpen] = useState(false);
   const [editingRequest, setEditingRequest] = useState(null);
   const [subject, setSubject] = useState("");
   const [description, setDescription] = useState("");
@@ -35,12 +35,17 @@ const RequestList = () => {
   }, [requests, userID]);
 
   const openModal = () => {
-    setIsModalOpen(true);
+    setEditModalOpen(true);
+    setShowProposals([]); // Reset the showProposals state
   };
 
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const closeEditModal = () => {
+    setEditModalOpen(false);
     // setToastVisible(true);
+  };
+
+  const closeProposalModal = () => {
+    setProposalModalOpen(false);
   };
 
   const hideToast = () => {
@@ -61,7 +66,7 @@ const RequestList = () => {
       setEditingRequest(request);
       setSubject(request.subject);
       setDescription(request.description);
-      openModal();
+      setEditModalOpen(true);
     }
   };
 
@@ -103,7 +108,7 @@ const RequestList = () => {
       request._id === editingRequest._id ? { ...request, ...updatedRequest } : request
     );
     setUserRequests(updatedUserRequests);
-    closeModal();
+    closeEditModal();
     setReloadComponent(true);
   };
 
@@ -118,23 +123,63 @@ const RequestList = () => {
     dispatch(getProposals(requestId));
     const filteredProposals = proposals.filter((proposal) => proposal.reqID === requestId);
     setShowProposals(filteredProposals);
-    openModal();
+    setProposalModalOpen(true);
   };
 
   const handleAcceptAndPayBtn = (proposalId) => {
     const updatedProposalData = {
-      status: "accepted"
+      status: "accepted",
     };
     dispatch(updateProposal(proposalId, updatedProposalData))
       .then(() => {
         // toast.success('Successfully accepted.');
-        closeModal();
+        closeProposalModal();
       })
       .catch((error) => {
-        toast.error('Error: ' + error.message);
+        toast.error("Error: " + error.message);
       });
   };
-  
+
+  const editModal = (
+    <Modal isOpen={isEditModalOpen} onClose={closeEditModal}>
+      <h3>Edit Request</h3>
+      <div className="mb-3">
+        <label className="form-label">Subject</label>
+        <input
+          type="text"
+          value={subject}
+          onChange={(e) => setSubject(e.target.value)}
+          className="form-control"
+        />
+      </div>
+      <div className="mb-3">
+        <label className="form-label">Description</label>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="form-control"
+        />
+      </div>
+      <button className="btn btn-primary" onClick={handleUpdateRequest}>
+        Update
+      </button>
+    </Modal>
+  );
+
+  const proposalModal = (
+    <Modal isOpen={isProposalModalOpen} onClose={closeProposalModal}>
+      <h3>Proposals</h3>
+      {showProposals.map((proposal) => (
+        <div key={proposal._id}>
+          <p>Proposal ID: {proposal._id}</p>
+          <p>Proposal Content: {proposal.description}</p>
+          <p>Proposal amount: {proposal.amount}</p>
+          <button onClick={() => handleAcceptAndPayBtn(proposal._id)}>Accept & Pay</button>
+          <button onClick={closeProposalModal}>Close</button>
+        </div>
+      ))}
+    </Modal>
+  );
 
   return (
     <div className={styles.requestInfo}>
@@ -166,49 +211,12 @@ const RequestList = () => {
           </div>
         </div>
       ))}
-      {editingRequest && (
-        <Modal isOpen={isModalOpen} onClose={closeModal}>
-          <h3>Edit Request</h3>
-          <div className="mb-3">
-            <label className="form-label">Subject</label>
-            <input
-              type="text"
-              value={subject}
-              onChange={(e) => setSubject(e.target.value)}
-              className="form-control"
-            />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Description</label>
-            <textarea
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="form-control"
-            />
-          </div>
-          <button className="btn btn-primary" onClick={handleUpdateRequest}>
-            Update
-          </button>
-        </Modal>
-      )}
-      {showProposals.length > 0 ? (
-        <Modal isOpen={isModalOpen} onClose={closeModal}>
-          <h3>Proposals</h3>
-          {showProposals.map((proposal) => (
-            <div key={proposal._id}>
-              <p>Proposal ID: {proposal._id}</p>
-              <p>Proposal Content: {proposal.description}</p>
-              <p>Proposal amount: {proposal.amount}</p>
-              <button onClick={() => handleAcceptAndPayBtn(proposal._id)}>Accept & Pay</button>
-              <button onClick={closeModal}>Close</button>
-            </div>
-          ))}
-        </Modal>
-      ) : (
-        <Modal isOpen={isModalOpen} onClose={closeModal}>
+      {editModal}
+      {showProposals.length > 0 ? proposalModal : (
+        <Modal isOpen={isProposalModalOpen} onClose={closeProposalModal}>
           <h3>No Proposals</h3>
           <p>There are no proposals available.</p>
-          <button onClick={closeModal}>Close</button>
+          <button onClick={closeProposalModal}>Close</button>
         </Modal>
       )}
 
